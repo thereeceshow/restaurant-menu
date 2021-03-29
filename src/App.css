@@ -2,7 +2,7 @@ html, body {
   height: 100vh;
 }
 .splash {
-  background: url(../src/Angels.jpg) no-repeat fixed;
+  background: url(../src/Angels.jpg) no-repeat;
   background-position: 75% 60%;
   background-size: cover;
   height: 100vh;

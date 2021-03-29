@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import "../App.css";
+import Section from "./Section"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Section />
     </div>
   );
 }
