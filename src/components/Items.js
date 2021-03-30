@@ -1,42 +1,36 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-export class Item extends Component {
+export class Items extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            menuItems: []
+            menuItems: [],
+            data: null
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
-        for (let i = 1; i <= 9; i++){
-            let newURL = apiURL + i
-            const axiosData = axios.get(newURL)
+            let newURL = apiURL + this.props.index
+            let axiosData = await axios.get(newURL)
             .then(response => {
-                console.log('got API Back', response);
-                const menu = {
-                    id: i,
-                    array: response.data
-                }
-                let newArray = this.state.menuItems.map((secObj) => {
-                    secObj = menu
-                    return secObj
-                });
-                this.setState({ menuItems: newArray })
+                //.this.setState({ menuItems: response.data })
+                console.log(response.data);
+                let tempMenu = this.state.menuItems
+                this.setState({ menuItems: response.data })
             })
             .catch(function (error) {
                 console.log(error);
             })
-            console.log('axios.data is saved', axiosData)
-        }
+            console.log('axios.data is saved', typeof axiosData)
+            //this.setState({ menuItems: axiosData })
     }
     render() {
-        return <div>{this.state.menuItems}</div>
+        return <div>test</div>
         
         
     }
 }
 
-export default Item
+export default Items

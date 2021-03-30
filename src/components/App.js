@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import Section from "./Section"
+import Sections from "./Sections"
 
 export class App extends Component {
   constructor() {
@@ -33,7 +33,7 @@ export class App extends Component {
             </div>
           </div>
         </div>
-        <Section />
+        <Sections />
       </div>
     );
   }

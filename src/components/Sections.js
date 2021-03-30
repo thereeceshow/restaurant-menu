@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Item from './Items'
+import Item, { Items } from './Items'
 
-export class Section extends Component {
+export class Sections extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -25,15 +25,19 @@ export class Section extends Component {
     }
     render() {
 
-        let sections = this.state.sectionURL.map(el => {
+        let sections = this.state.sectionURL.map((el, i) => {
             return (
-                <div className="accordion-item d-flex justify-content-center">
+                <div key={i} className="accordion-item d-flex justify-content-center">
                     <h2 className="accordion-header" id="{el}">
                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">{el.type}
                         </button>
                     </h2>
                     <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div className="accordion-body"><Item /></div>
+                        <div className="accordion-body">
+                        <Items 
+                            index={i + 1}
+                        />
+                        </div>
                     </div>
                 </div>)
         });
@@ -45,4 +49,4 @@ export class Section extends Component {
     }
 }
 
-export default Section
+export default Sections
