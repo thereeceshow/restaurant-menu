@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Item from './Items'
 
 export class Section extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export class Section extends Component {
         const axiosData = axios.get(apiURL)
             .then(response => {
                 console.log('got API Back', response);
-                this.setState({sectionURL: response.data})
+                this.setState({ sectionURL: response.data })
                 // return response.data
             })
             .catch(function (error) {
@@ -23,11 +24,21 @@ export class Section extends Component {
         console.log('axios.data is saved', axiosData)
     }
     render() {
+
         let sections = this.state.sectionURL.map(el => {
-            return <h3 className="col-12">{el.type}</h3>
+            return (
+                <div className="accordion-item d-flex justify-content-center">
+                    <h2 className="accordion-header" id="{el}">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">{el.type}
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div className="accordion-body"><Item /></div>
+                    </div>
+                </div>)
         });
         return (
-            <div className="row text-center">
+            <div className="accordion accordion-flush" id="accordion1">
                 {sections}
             </div>
         )
