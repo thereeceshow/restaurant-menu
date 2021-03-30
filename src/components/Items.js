@@ -12,8 +12,8 @@ export class Items extends Component {
 
     async componentDidMount() {
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
-            let newURL = apiURL + this.props.index
-            let axiosData = await axios.get(newURL)
+        let newURL = apiURL + this.props.index
+        let axiosData = await axios.get(newURL)
             .then(response => {
                 //.this.setState({ menuItems: response.data })
                 console.log(response.data);
@@ -23,14 +23,26 @@ export class Items extends Component {
             .catch(function (error) {
                 console.log(error);
             })
-            console.log('axios.data is saved', typeof axiosData)
-            //this.setState({ menuItems: axiosData })
+        console.log('axios.data is saved', typeof axiosData)
+        //this.setState({ menuItems: axiosData })
     }
     render() {
-        return <div>test</div>
-        
-        
+        return (
+            <div>
+            {this.state.menuItems.map((value, index) => {
+                return (
+                    <Items
+                        text={value.name}
+                        key={index}
+                        description={value.description}
+                    />
+                );
+            })}
+            </div>
+        )
+
     }
 }
 
-export default Items
+
+export default Items;

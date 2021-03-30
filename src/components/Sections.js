@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Item, { Items } from './Items'
+import Items from './Items'
 
 export class Sections extends Component {
     constructor(props) {
