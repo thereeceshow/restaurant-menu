@@ -6,20 +6,20 @@ export class Sections extends Component {
     constructor(props) {
         super();
         this.state = {
-            sectionURL: []
+            sectionsArray: []
         }
     }
 
     componentDidMount() {
-        let sectionURL = window.localStorage.getItem("sectionURL")
+        let sectionsArray = window.localStorage.getItem("sectionsArray")
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/sections'
-        if (sectionURL) {
-            this.setState({ sectionURL: JSON.parse(sectionURL)});
+        if (sectionsArray) {
+            this.setState({ sectionsArray: JSON.parse(sectionsArray)});
         } else {
             axios.get(apiURL)
             .then(response => {
                 console.log('got API Back', response);
-                this.setState({ sectionURL: response.data })
+                this.setState({ sectionsArray: response.data })
                 // return response.data
             })
             .catch(function (error) {
@@ -30,14 +30,14 @@ export class Sections extends Component {
 
     componentDidUpdate() {
         window.localStorage.setItem(
-            "sectionURL",
-            JSON.stringify(this.state.sectionURL)
+            "sectionsArray",
+            JSON.stringify(this.state.sectionsArray)
         );
     }
 
     render() {
 
-        let sections = this.state.sectionURL.map((el, i) => {
+        let sections = this.state.sectionsArray.map((el, i) => {
             return (
                 <div key={i} className="accordion-item d-flex justify-content-center">
                     <h2 className="accordion-header py-2" id={`flush-heading${i}`}>

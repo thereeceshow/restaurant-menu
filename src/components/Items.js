@@ -12,10 +12,11 @@ export class Items extends Component {
     componentDidMount() {
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
         let newURL = apiURL + this.props.index
-        let menuItems = window.localStorage.getItem("menuItems")
+        let menuItems = window.localStorage.getItem(`menuItems${this.props.index}`)
+        console.log({menuItems});
 
         if (menuItems) {
-            this.setState({menuItem: JSON.parse(menuItems)});
+            this.setState({menuItems: JSON.parse(menuItems)});
         } else {
             axios.get(newURL)
             .then(response => {
@@ -30,7 +31,7 @@ export class Items extends Component {
 
     componentDidUpdate() {
         window.localStorage.setItem(
-            "menuItems",
+            `menuItems${this.props.index}`,
             JSON.stringify(this.state.menuItems)
         );
     }
@@ -83,7 +84,6 @@ export class Items extends Component {
 
 
     render() {
-        console.log(this.state.menuItems)
 
         return this.state.menuItems.map((el, index) => (
             <React.Fragment key={index}>

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import "../App.css";
 import Sections from "./Sections"
 import Bootstrap from "bootstrap"
 
-export class App extends Component {
+export class App extends React.Component {
   constructor() {
     super();
     this.state = {
