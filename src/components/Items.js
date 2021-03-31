@@ -21,7 +21,12 @@ export class Items extends Component {
             axios.get(newURL)
             .then(response => {
                 console.log(response.data);
-                this.setState({ menuItems: response.data });
+                let priceMap = response.data.map(el => {
+                    let price = this.randomPrice(el.meal_type_id)
+                    el.price = price
+                    return el
+                });
+                this.setState({ menuItems: priceMap });
             })
             .catch(function (error) {
                 console.log(error);
@@ -76,11 +81,13 @@ export class Items extends Component {
                 max = 4;
                 min = 2;
                 break;
+            default:
+                max = 40;
+                min = 20;
         }
 
         return Math.floor(Math.random() * (max - min) + min);
     }
-
 
 
     render() {
