@@ -11,8 +11,12 @@ export class Sections extends Component {
     }
 
     componentDidMount() {
+        let sectionURL = window.localStorage.getItem("sectionURL")
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/sections'
-        const axiosData = axios.get(apiURL)
+        if (sectionURL) {
+            this.setState({ sectionURL: JSON.parse(sectionURL)});
+        } else {
+            axios.get(apiURL)
             .then(response => {
                 console.log('got API Back', response);
                 this.setState({ sectionURL: response.data })
@@ -21,18 +25,26 @@ export class Sections extends Component {
             .catch(function (error) {
                 console.log(error);
             })
-        console.log('axios.data is saved', axiosData)
+        }
     }
+
+    componentDidUpdate() {
+        window.localStorage.setItem(
+            "sectionURL",
+            JSON.stringify(this.state.sectionURL)
+        );
+    }
+
     render() {
 
         let sections = this.state.sectionURL.map((el, i) => {
             return (
                 <div key={i} className="accordion-item d-flex justify-content-center">
-                    <h2 className="accordion-header" id="{el}">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">{el.type}
+                    <h2 className="accordion-header py-2" id={`flush-heading${i}`}>
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#flush-collapse${i}`} aria-expanded="false" aria-controls={`flush-collapse${i}`}>{el.type}
                         </button>
                     </h2>
-                    <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div id={`flush-collapse${i}`} className="accordion-collapse collapse" aria-labelledby={`flush-heading${i}`} data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body">
                         <Items 
                             index={i + 1}
@@ -42,7 +54,7 @@ export class Sections extends Component {
                 </div>)
         });
         return (
-            <div className="accordion accordion-flush" id="accordion1">
+            <div className="accordion accordion-flush" id="accordionFlushExample">
                 {sections}
             </div>
         )

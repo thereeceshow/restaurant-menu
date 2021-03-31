@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../App.css";
 import Sections from "./Sections"
+import Bootstrap from "bootstrap"
 
 export class App extends Component {
   constructor() {
@@ -29,13 +30,26 @@ export class App extends Component {
               <h6 className="text-end text-break d-block d-md-none">
                 Haute Whiskey <br /> & Cheap Food
             </h6>
-              <p className="btn-dark btn text-end mx-5 mt-2 px-4">Menu</p>
+              <a href="#menu" className="btn-dark btn text-end mx-5 mt-2 px-4">Menu</a>
             </div>
           </div>
         </div>
-        <Sections />
+        <div id="menu">
+          <Sections />
+        </div>
+        <hr />
+        <div className="text-center pt-3">
+          <h4>Contact Us</h4>
+          <div className="mt-3"><a herf="tel:(732)829-2608">(732)829-2608</a></div>
+          <div className="mt-3"><a href="mailto:ian@icooklikeaboss.com">ian@icooklikeaboss.com</a></div>
+          <div className="my-3"><a href="https://www.instagram.com/wereeatinggoodtonight/">Instagram</a></div>
+          <h5 className="mt-3">348 E Main St
+          <br />Lexington, KY 40507
+          </h5>
+          <h6 className="mt-3 mb-5 pb-5">Copyright 2021 - DrunkCooks LLC</h6>
+        </div>
       </div>
     );
   }
 }
-  export default App;
+export default App;

@@ -1,5 +1,6 @@
 html, body {
   height: 100vh;
+  scroll-behavior: smooth;
 }
 .splash {
   background: url(../src/Angels.jpg) no-repeat;

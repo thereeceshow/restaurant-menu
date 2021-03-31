@@ -6,41 +6,92 @@ export class Items extends Component {
         super(props);
         this.state = {
             menuItems: [],
-            data: null
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
         let newURL = apiURL + this.props.index
-        let axiosData = await axios.get(newURL)
+        let menuItems = window.localStorage.getItem("menuItems")
+
+        if (menuItems) {
+            this.setState({menuItem: JSON.parse(menuItems)});
+        } else {
+            axios.get(newURL)
             .then(response => {
-                //.this.setState({ menuItems: response.data })
                 console.log(response.data);
-                let tempMenu = this.state.menuItems
-                this.setState({ menuItems: response.data })
+                this.setState({ menuItems: response.data });
             })
             .catch(function (error) {
                 console.log(error);
             })
-        console.log('axios.data is saved', typeof axiosData)
-        //this.setState({ menuItems: axiosData })
+        }
     }
-    render() {
-        return (
-            <div>
-            {this.state.menuItems.map((value, index) => {
-                return (
-                    <Items
-                        text={value.name}
-                        key={index}
-                        description={value.description}
-                    />
-                );
-            })}
-            </div>
-        )
 
+    componentDidUpdate() {
+        window.localStorage.setItem(
+            "menuItems",
+            JSON.stringify(this.state.menuItems)
+        );
+    }
+
+    randomPrice(sectionID) {
+        let max = 0
+        let min = 0
+        switch (sectionID) {
+            case 1: //breakfast
+                max = 23;
+                min = 15;
+                break;
+            case 2: //snacks
+                max = 18;
+                min = 8;
+                break;
+            case 3: //lunch
+                max = 18;
+                min = 11;
+                break;
+            case 4: //apps
+                max = 22;
+                min = 8;
+                break;
+            case 5: //dinner
+                max = 64;
+                min = 35;
+                break;
+            case 6: //sides
+                max = 14;
+                min = 4;
+                break;
+            case 7: //desserts
+                max = 12;
+                min = 8;
+                break;
+            case 8: //drinks
+                max = 23; 
+                min = 4;
+                break;
+            case 9: //sauces
+                max = 4;
+                min = 2;
+                break;
+        }
+
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+
+
+    render() {
+        console.log(this.state.menuItems)
+
+        return this.state.menuItems.map((el, index) => (
+            <React.Fragment key={index}>
+                <div className="d-flex justify-content-between"><h3>{el.name}</h3><h3>{this.randomPrice(el.meal_type_id)}</h3></div>
+                <p>{el.description}</p>
+            </React.Fragment>)
+        );
+        //return sectionItems}</>
     }
 }
 
