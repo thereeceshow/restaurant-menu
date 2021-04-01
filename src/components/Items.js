@@ -4,33 +4,47 @@ import axios from "axios";
 export class Items extends Component {
     constructor(props) {
         super(props);
+        this.apiCall = this.apiCall.bind(this);
         this.state = {
             menuItems: [],
         }
     }
 
-    componentDidMount() {
-        let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
-        let newURL = apiURL + this.props.index
-        let menuItems = window.localStorage.getItem(`menuItems${this.props.index}`)
-        console.log({menuItems});
-
-        if (menuItems) {
-            this.setState({menuItems: JSON.parse(menuItems)});
-        } else {
-            axios.get(newURL)
+    apiCall(URL, menuSet) {
+        axios.get(URL)
             .then(response => {
-                console.log(response.data);
-                let priceMap = response.data.map(el => {
+                // console.log(response.data);
+                response.data.map(el => {
                     let price = this.randomPrice(el.meal_type_id)
                     el.price = price
-                    return el
+                    menuSet.add(el)
                 });
-                this.setState({ menuItems: priceMap });
+                // console.log(this.props.index, menuSet)
+                if (this.props.index === 5 && menuSet.size < 12) {
+                    // console.log(menuSet.size)
+                    this.apiCall(URL, menuSet)
+                } else {
+                    let setArray = Array.from(menuSet);
+                    this.setState({ menuItems: setArray });
+                }
             })
             .catch(function (error) {
                 console.log(error);
             })
+    };
+
+    componentDidMount() {
+        let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
+        let newURL = apiURL + this.props.index
+        let menuItems = window.localStorage.getItem(`menuItems${this.props.index}`)
+        // console.log({ menuItems });
+
+        if (menuItems) {
+            this.setState({ menuItems: JSON.parse(menuItems) });
+        } else {
+            let menuSet = new Set()
+            // console.log({menuSet})
+            this.apiCall(newURL, menuSet)
         }
     }
 
@@ -74,7 +88,7 @@ export class Items extends Component {
                 min = 8;
                 break;
             case 8: //drinks
-                max = 23; 
+                max = 23;
                 min = 4;
                 break;
             case 9: //sauces
@@ -94,7 +108,7 @@ export class Items extends Component {
 
         return this.state.menuItems.map((el, index) => (
             <React.Fragment key={index}>
-                <div className="d-flex justify-content-between"><h3>{el.name}</h3><h3>{this.randomPrice(el.meal_type_id)}</h3></div>
+                <div className="d-flex justify-content-between"><h3>{el.name}</h3><h3>{el.price}</h3></div>
                 <p>{el.description}</p>
             </React.Fragment>)
         );

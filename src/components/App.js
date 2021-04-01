@@ -40,7 +40,7 @@ export class App extends React.Component {
         <hr />
         <div className="text-center pt-3">
           <h4>Contact Us</h4>
-          <div className="mt-3"><a herf="tel:(732)829-2608">(732)829-2608</a></div>
+          <div className="mt-3"><a href="tel:(732)829-2608">(732)829-2608</a></div>
           <div className="mt-3"><a href="mailto:ian@icooklikeaboss.com">ian@icooklikeaboss.com</a></div>
           <div className="my-3"><a href="https://www.instagram.com/wereeatinggoodtonight/">Instagram</a></div>
           <h5 className="mt-3">348 E Main St
