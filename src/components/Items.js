@@ -100,7 +100,7 @@ export class Items extends Component {
                 min = 20;
         }
 
-        return Math.floor(Math.random() * (max - min) + min);
+        return '$ ' + Math.floor(Math.random() * (max - min) + min);
     }
 
 
