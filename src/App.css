@@ -1,8 +1,16 @@
 html, body {
   height: 100vh;
+  scroll-behavior: smooth;
 }
 .splash {
-  background: url(../src/Angels.jpg) no-repeat bottom fixed;
+  background: url(../src/Angels.jpg) no-repeat;
+  background-position: 75% 60%;
   background-size: cover;
   height: 100vh;
+}
+
+.transp {
+  background-color: rgba(245, 245, 245, 0.422);
+  background-image: radial-gradient();
+  text-shadow: white;
 }
