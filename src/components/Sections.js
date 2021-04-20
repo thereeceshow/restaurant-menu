@@ -12,7 +12,8 @@ export class Sections extends Component {
 
     componentDidMount() {
         let sectionsArray = window.localStorage.getItem("sectionsArray")
-        let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/sections'
+        let apiURL = 'https://awesomeincbootcampapi-ianrios529550.codeanyapp.com/api/menu/sections'
+        //let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/api/menu/sections'
         if (sectionsArray) {
             this.setState({ sectionsArray: JSON.parse(sectionsArray)});
         } else {

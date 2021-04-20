@@ -34,7 +34,8 @@ export class Items extends Component {
     };
 
     componentDidMount() {
-        let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/public/api/menu/type/'
+        let apiURL = 'https://awesomeincbootcampapi-ianrios529550.codeanyapp.com/api/menu/type/'
+        //let apiURL = 'http://awesomeincbootcampapi-ianrios529550.codeanyapp.com:3000/api/menu/type/'
         let newURL = apiURL + this.props.index
         let menuItems = window.localStorage.getItem(`menuItems${this.props.index}`)
         // console.log({ menuItems });
